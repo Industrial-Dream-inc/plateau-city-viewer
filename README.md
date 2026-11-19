@@ -6,7 +6,7 @@
 
 Load buildings from Japan's open [PLATEAU](https://www.mlit.go.jp/plateau/) 3D city models into three.js, walk the streets, and break buildings one at a time.
 
-**Demo:** DEMO_URL (a 400 m × 300 m block of Ginza, Tokyo)
+**Demo:** https://plateau-city-viewer.vercel.app (a 400 m × 300 m block of Ginza, Tokyo)
 
 ![Ginza block](docs/overview.png)
 
