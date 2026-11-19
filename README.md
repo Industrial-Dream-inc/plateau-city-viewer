@@ -24,7 +24,7 @@ npm run dev
 # open http://localhost:5173/
 ```
 
-Controls (English / 日本語, switch with the button at the bottom left): click to start, `WASD` walk, `Shift` run, `Space` jump, `F` fly, left click shoot, right click or `E` stomp, `Esc` release the mouse. On phones: drag on the left half to walk, on the right half to look, tap to shoot.
+Controls are always shown at the bottom right of the screen (English / 日本語, switch with the button at the bottom left): click to start, `WASD` walk, `Shift` run, `Space` jump, `F` fly, left click shoot, right click or `E` stomp, `Esc` release the mouse. On phones: drag on the left half to walk, on the right half to look, tap to shoot.
 
 ## Your own city
 

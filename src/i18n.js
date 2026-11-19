@@ -16,6 +16,9 @@ const TEXT = {
     start: 'Start',
     loading: 'Loading city…',
     toggle: '日本語',
+    helpTitle: 'CONTROLS',
+    helpDesk: '<dt><kbd>W A S D</kbd> / <kbd>↑↓←→</kbd></dt><dd>Move</dd><dt>Mouse</dt><dd>Look (click the view first)</dd><dt><kbd>Shift</kbd></dt><dd>Run</dd><dt><kbd>Space</kbd></dt><dd>Jump</dd><dt><kbd>F</kbd></dt><dd>Fly on/off (<kbd>Space</kbd> up, <kbd>C</kbd> down)</dd><dt>Left click</dt><dd>Shoot</dd><dt>Right click / <kbd>E</kbd></dt><dd>Stomp</dd><dt><kbd>Esc</kbd></dt><dd>Free the mouse</dd><dt>日本語</dt><dd>Language (button, bottom left)</dd>',
+    helpTouch: '<dt>Drag left half</dt><dd>Move (drag far to run)</dd><dt>Drag right half</dt><dd>Look</dd><dt>Tap right half</dt><dd>Shoot</dd><dt>Jump / Stomp</dt><dd>Buttons</dd><dt>日本語</dt><dd>Language (bottom left)</dd>',
   },
   ja: {
     broken: '壊した建物',
@@ -31,6 +34,9 @@ const TEXT = {
     start: 'はじめる',
     loading: '街を読み込み中…',
     toggle: 'English',
+    helpTitle: '操作',
+    helpDesk: '<dt><kbd>W A S D</kbd> / <kbd>↑↓←→</kbd></dt><dd>移動</dd><dt>マウス</dt><dd>見回す（先に画面をクリック）</dd><dt><kbd>Shift</kbd></dt><dd>走る</dd><dt><kbd>Space</kbd></dt><dd>ジャンプ</dd><dt><kbd>F</kbd></dt><dd>飛ぶ／戻る（<kbd>Space</kbd> 上・<kbd>C</kbd> 下）</dd><dt>左クリック</dt><dd>撃つ</dd><dt>右クリック / <kbd>E</kbd></dt><dd>踏みつけ</dd><dt><kbd>Esc</kbd></dt><dd>マウスを戻す</dd><dt>English</dt><dd>言語（左下のボタン）</dd>',
+    helpTouch: '<dt>左半分をドラッグ</dt><dd>移動（大きく動かすと走る）</dd><dt>右半分をドラッグ</dt><dd>見回す</dd><dt>右半分をタップ</dt><dd>撃つ</dd><dt>ジャンプ・踏みつけ</dt><dd>ボタン</dd><dt>English</dt><dd>言語（左下のボタン）</dd>',
   },
 };
 

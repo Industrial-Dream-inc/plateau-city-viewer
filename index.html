@@ -32,16 +32,28 @@
     #intro kbd { font: 12px ui-monospace, monospace; border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; color: var(--fg); }
     #intro .go { margin-top: 12px; display: inline-block; background: var(--accent); color: #1b1305; font-weight: 600; padding: 7px 14px; border-radius: 8px; }
     .touch { display: none; }
-    @media (pointer: coarse) { .touch { display: flex; } .desk { display: none; } }
-    #pad { position: fixed; right: 12px; bottom: 40px; gap: 10px; }
-    #pad button { width: 64px; height: 64px; border-radius: 50%; border: 1px solid var(--line); background: var(--glass); color: var(--fg); font-weight: 600; font-size: 12px; }
+    #help dl.touch { display: none; }
+    @media (pointer: coarse) { .touch { display: flex; } #help dl.touch { display: grid; } .desk, #help dl.desk { display: none; } }
     #tools { position: fixed; left: 12px; bottom: 28px; gap: 8px; display: flex; z-index: 10; }
     #tools button { border: 1px solid var(--line); background: var(--glass); color: var(--fg); padding: 6px 10px; border-radius: 8px; font-size: 12px; cursor: pointer; }
+    /* right-bottom dock: always-on controls help (+ jump button on touch) */
+    #dock { position: fixed; right: 12px; bottom: 44px; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; z-index: 6; }
+    #help { padding: 9px 12px; font-size: 12px; pointer-events: none; position: static; max-width: 300px; }
+    #help h2 { font-size: 12px; margin: 0 0 5px; color: var(--accent); letter-spacing: .04em; font-weight: 600; }
+    #help dl { display: grid; grid-template-columns: auto 1fr; gap: 3px 10px; margin: 0; }
+    #help dt { color: var(--fg); white-space: nowrap; }
+    #help dd { margin: 0; color: var(--muted); }
+    #help kbd { font: 11px ui-monospace, monospace; border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; }
+    #pad button { width: 60px; height: 60px; border-radius: 50%; border: 1px solid var(--line); background: var(--glass); color: var(--fg); font-weight: 600; font-size: 11px; white-space: nowrap; padding: 0; }
     @media (max-width: 640px) {
       #cta { top: 78px; left: 12px; right: auto; max-width: calc(100vw - 24px); }
       #attr { left: 8px; right: 8px; max-width: none; font-size: 9px; }
-      #tools { bottom: 74px; }
-      #pad { bottom: 120px; }
+      #tools { bottom: 68px; flex-direction: column; align-items: flex-start; }
+      #dock { bottom: 68px; }
+      #help { max-width: calc(100vw - 150px); font-size: 11px; padding: 8px 10px; }
+      #help dl { grid-template-columns: 1fr; gap: 0; }
+      #help dd { margin-bottom: 3px; }
+      #intro { place-items: start center; padding-top: 128px; }
     }
     #status { position: fixed; left: 50%; top: 45%; transform: translateX(-50%); color: #1d2733; font-weight: 600; }
   </style>
@@ -65,15 +77,19 @@
     <button id="btn-reset" type="button" data-i18n="rebuild">Rebuild</button>
     <button id="btn-lang" type="button" aria-label="Language">日本語</button>
   </div>
-  <div id="pad" class="touch"><button id="btn-jump" type="button" data-i18n="jump">Jump</button></div>
+  <div id="dock">
+    <div id="pad" class="touch"><button id="btn-jump" type="button" data-i18n="jump">Jump</button></div>
+    <div id="help" class="panel" aria-live="polite">
+      <h2 data-i18n="helpTitle">Controls</h2>
+      <dl class="desk" data-i18n-html="helpDesk"></dl>
+      <dl class="touch" data-i18n-html="helpTouch"></dl>
+    </div>
+  </div>
 
   <div id="intro">
     <div class="card panel" style="position:relative">
       <h1 data-i18n="introTitle">Walk a real block of Ginza, Tokyo</h1>
       <p data-i18n="introBody">Every building is a separate PLATEAU building with its own hit box. Shoot one until it falls.</p>
-      <p class="desk" data-i18n-html="keys"><kbd>W A S D</kbd> walk · <kbd>Shift</kbd> run · <kbd>Space</kbd> jump · <kbd>F</kbd> fly<br>
-        <kbd>Left click</kbd> shoot · <kbd>Right click</kbd>/<kbd>E</kbd> stomp · <kbd>Esc</kbd> release mouse</p>
-      <p class="touch" style="flex-direction:column" data-i18n="touch">Left side: drag to walk · Right side: drag to look, tap to shoot</p>
       <span class="go" data-i18n="start">Start</span>
     </div>
   </div>
