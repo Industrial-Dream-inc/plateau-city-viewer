@@ -1,0 +1,22 @@
+{
+  "name": "plateau-city-viewer",
+  "version": "0.1.0",
+  "description": "Load PLATEAU 3D city models into three.js, walk the streets and break buildings one by one.",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "convert": "node tools/plateau-to-city.mjs",
+    "test": "node --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "three": "0.170.0"
+  },
+  "devDependencies": {
+    "draco3d": "1.5.7",
+    "vite": "6.0.7"
+  },
+  "engines": { "node": ">=18" }
+}
