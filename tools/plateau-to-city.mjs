@@ -27,6 +27,7 @@ const { values: a } = parseArgs({
     width: { type: 'string', default: '400' },
     depth: { type: 'string', default: '300' },
     name: { type: 'string', default: 'city' },
+    'name-ja': { type: 'string' },
     out: { type: 'string' },
     cache: { type: 'string', default: '.cache/tiles' },
     attribution: { type: 'string', default: '' },
@@ -122,6 +123,7 @@ if (a['keep-terrain']) {
 const out = {
   format: 'plateau-city-viewer/city@1',
   name: a.name,
+  name_ja: a['name-ja'] ?? null,
   center: [lat, lon],
   size: [width, depth],
   units: 'decimetres (integer) in positions; x=east y=up z=south',

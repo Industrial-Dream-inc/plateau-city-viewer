@@ -24,7 +24,7 @@ npm run dev
 # open http://localhost:5173/
 ```
 
-Controls: click to start, `WASD` walk, `Shift` run, `Space` jump, `F` fly, left click shoot, right click or `E` stomp, `Esc` release the mouse. On phones: drag on the left half to walk, on the right half to look, tap to shoot.
+Controls (English / 日本語, switch with the button at the bottom left): click to start, `WASD` walk, `Shift` run, `Space` jump, `F` fly, left click shoot, right click or `E` stomp, `Esc` release the mouse. On phones: drag on the left half to walk, on the right half to look, tap to shoot.
 
 ## Your own city
 
@@ -39,7 +39,7 @@ Controls: click to start, `WASD` walk, `Shift` run, `Space` jump, `F` fly, left 
      --tileset "<tileset.json URL>" \
      --lat 35.6938 --lon 139.7034 --width 400 --depth 300 \
      --name "Shinjuku" \
-     --attribution "「3D都市モデル（Project PLATEAU）東京都新宿区（20XX年度）」（国土交通省）を加工して作成" \
+     --attribution "「3D都市モデル（Project PLATEAU）東京都新宿区（20XX年度）」（国土交通省）（https://www.mlit.go.jp/plateau/open-data/）を加工して作成" \
      --out public/data/shinjuku.city.json
    ```
    Pass `--tileset` twice when the block crosses a ward boundary.
@@ -94,7 +94,7 @@ node examples/sdk-node.mjs --generate # builds it (300 DREAM per block)
 ## Data and licenses
 
 - Code: MIT (`LICENSE`).
-- Demo data: 「3D都市モデル（Project PLATEAU）東京都中央区（2025年度）」（国土交通省）を加工して作成. PLATEAU data is offered under terms compatible with CC BY 4.0. Keep the attribution with any city you publish. See `ATTRIBUTION.md`.
+- Demo data: 「3D都市モデル（Project PLATEAU）東京都中央区（2025年度）」（国土交通省）（https://www.mlit.go.jp/plateau/open-data/）を加工して作成. PLATEAU data is offered under the PLATEAU site policy (PDL 1.0, compatible with CC BY 4.0), commercial use included. Keep the source and the "processed" note with any city you publish. Using the data to carry out a survey needs approval under the Survey Act; see `ATTRIBUTION.md`.
 - three.js (MIT), Vite (MIT), draco3d (Apache-2.0, converter only).
 
 This project is not affiliated with or endorsed by MLIT or Project PLATEAU.

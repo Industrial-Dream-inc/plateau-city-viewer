@@ -24,7 +24,7 @@
     #crosshair::before, #crosshair::after { content: ""; position: absolute; background: rgba(255,255,255,.9); box-shadow: 0 0 2px #000; }
     #crosshair::before { left: 6px; top: 0; width: 2px; height: 14px; }
     #crosshair::after { top: 6px; left: 0; height: 2px; width: 14px; }
-    #intro { inset: 0; position: fixed; display: grid; place-items: center; background: rgba(10, 14, 20, .35); cursor: pointer; }
+    #intro { inset: 0; position: fixed; z-index: 5; display: grid; place-items: center; background: rgba(10, 14, 20, .35); cursor: pointer; }
     #intro[hidden] { display: none; }
     #intro .card { padding: 18px 22px; max-width: 420px; margin: 16px; }
     #intro h1 { font-size: 18px; margin: 0 0 6px; }
@@ -35,8 +35,14 @@
     @media (pointer: coarse) { .touch { display: flex; } .desk { display: none; } }
     #pad { position: fixed; right: 12px; bottom: 40px; gap: 10px; }
     #pad button { width: 64px; height: 64px; border-radius: 50%; border: 1px solid var(--line); background: var(--glass); color: var(--fg); font-weight: 600; font-size: 12px; }
-    #tools { position: fixed; left: 12px; bottom: 28px; gap: 8px; display: flex; }
+    #tools { position: fixed; left: 12px; bottom: 28px; gap: 8px; display: flex; z-index: 10; }
     #tools button { border: 1px solid var(--line); background: var(--glass); color: var(--fg); padding: 6px 10px; border-radius: 8px; font-size: 12px; cursor: pointer; }
+    @media (max-width: 640px) {
+      #cta { top: 78px; left: 12px; right: auto; max-width: calc(100vw - 24px); }
+      #attr { left: 8px; right: 8px; max-width: none; font-size: 9px; }
+      #tools { bottom: 74px; }
+      #pad { bottom: 120px; }
+    }
     #status { position: fixed; left: 50%; top: 45%; transform: translateX(-50%); color: #1d2733; font-weight: 600; }
   </style>
 </head>
@@ -47,27 +53,28 @@
 
   <div id="hud" class="panel">
     <b>PLATEAU City Viewer</b> · <span id="place"></span>
-    <div class="row">Broken buildings <span id="count">0 / 0</span></div>
+    <div class="row"><span data-i18n="broken">Broken buildings</span> <span id="count">0 / 0</span></div>
   </div>
 
   <a id="cta" class="panel" href="https://bun-cho.work/developers/city?utm_source=plateau-city-viewer&utm_medium=demo" target="_blank" rel="noopener">
-    Photoreal version of this block → <span>BunCho City API</span>
+    <span data-i18n="cta">Photoreal version of this block →</span> <span data-i18n="ctaName">BunCho City API</span>
   </a>
 
   <div id="tools">
-    <button id="btn-stomp" type="button">Stomp (E)</button>
-    <button id="btn-reset" type="button">Rebuild</button>
+    <button id="btn-stomp" type="button" data-i18n="stomp">Stomp (E)</button>
+    <button id="btn-reset" type="button" data-i18n="rebuild">Rebuild</button>
+    <button id="btn-lang" type="button" aria-label="Language">日本語</button>
   </div>
-  <div id="pad" class="touch"><button id="btn-jump" type="button">Jump</button></div>
+  <div id="pad" class="touch"><button id="btn-jump" type="button" data-i18n="jump">Jump</button></div>
 
   <div id="intro">
     <div class="card panel" style="position:relative">
-      <h1>Walk a real block of Ginza, Tokyo</h1>
-      <p>Every building is a separate PLATEAU building with its own hit box. Shoot one until it falls.</p>
-      <p class="desk"><kbd>W A S D</kbd> walk · <kbd>Shift</kbd> run · <kbd>Space</kbd> jump · <kbd>F</kbd> fly<br>
+      <h1 data-i18n="introTitle">Walk a real block of Ginza, Tokyo</h1>
+      <p data-i18n="introBody">Every building is a separate PLATEAU building with its own hit box. Shoot one until it falls.</p>
+      <p class="desk" data-i18n-html="keys"><kbd>W A S D</kbd> walk · <kbd>Shift</kbd> run · <kbd>Space</kbd> jump · <kbd>F</kbd> fly<br>
         <kbd>Left click</kbd> shoot · <kbd>Right click</kbd>/<kbd>E</kbd> stomp · <kbd>Esc</kbd> release mouse</p>
-      <p class="touch" style="flex-direction:column">Left side: drag to walk · Right side: drag to look, tap to shoot</p>
-      <span class="go">Start</span>
+      <p class="touch" style="flex-direction:column" data-i18n="touch">Left side: drag to walk · Right side: drag to look, tap to shoot</p>
+      <span class="go" data-i18n="start">Start</span>
     </div>
   </div>
 

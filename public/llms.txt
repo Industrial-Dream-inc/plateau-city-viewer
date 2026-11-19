@@ -4,7 +4,7 @@
 
 - Demo: walk and break a 400 m x 300 m block of Ginza, Tokyo (this site).
 - Converter: PLATEAU 3D Tiles (b3dm, LOD1/LOD2) -> compact JSON, one mesh per building.
-- Data: 「3D都市モデル（Project PLATEAU）東京都中央区（2025年度）」（国土交通省）を加工して作成 (CC BY 4.0 compatible).
+- Data: 「3D都市モデル（Project PLATEAU）東京都中央区（2025年度）」（国土交通省）（https://www.mlit.go.jp/plateau/open-data/）を加工して作成 (PLATEAU site policy, PDL 1.0, CC BY 4.0 compatible).
 
 ## Photoreal version (paid API)
 

@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { City } from './city/City.js';
 import { Debris } from './city/Debris.js';
 import { WalkControls } from './controls/WalkControls.js';
+import { apply as applyLang, onLangChange, toggle as toggleLang, t, lang } from './i18n.js';
 
 const params = new URLSearchParams(location.search);
 const cityUrl = params.get('city') || './data/ginza.city.json';
@@ -26,7 +27,9 @@ sun.position.set(-120, 200, 80);
 scene.add(sun);
 
 const status = $('status');
-status.textContent = 'Loading city…';
+applyLang();
+$('btn-lang').addEventListener('click', toggleLang);
+status.textContent = t('loading');
 const data = await (await fetch(cityUrl)).json();
 const city = new City(data);
 scene.add(city.mesh);
@@ -114,7 +117,9 @@ function updateHud() {
   $('count').textContent = `${down} / ${total}`;
 }
 updateHud();
-$('place').textContent = data.name;
+const placeName = (l) => (l === 'ja' && data.name_ja) || data.name;
+$('place').textContent = placeName(lang);
+onLangChange((l) => { $('place').textContent = placeName(l); });
 $('attr').textContent = data.attribution;
 status.textContent = '';
 
