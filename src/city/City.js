@@ -25,8 +25,12 @@ export class City {
     const rows = Math.max(1, Math.ceil(n / STATE_W));
     this.stateData = new Float32Array(STATE_W * rows * 4);
     this.infoData = new Float32Array(STATE_W * rows * 4);
-    this.stateTex = makeTex(this.stateData, rows);
-    this.infoTex = makeTex(this.infoData, rows);
+    // One texture, two texels per building: (2i) state, (2i+1) info.
+    // A single sampler avoids a driver issue seen with two float samplers in
+    // the vertex shader (buildings flickered flat on high-DPI canvases).
+    this.texData = new Float32Array(STATE_W * 2 * rows * 4);
+    this.stateTex = makeTex(this.texData, rows);
+    this._dirty = true;
 
     let triCount = 0;
     for (const b of data.buildings) triCount += b.i.length / 3;
@@ -82,7 +86,8 @@ export class City {
     geo.computeBoundingSphere();
     geo.computeBoundingBox();
 
-    this.uniforms = { uState: { value: this.stateTex }, uInfo: { value: this.infoTex }, uTime: { value: 0 } };
+    this._sync();
+    this.uniforms = { uState: { value: this.stateTex }, uTime: { value: 0 } };
     const mat = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.85, metalness: 0.05 });
     mat.onBeforeCompile = (shader) => patchShader(shader, this.uniforms);
     this.mesh = new THREE.Mesh(geo, mat);
@@ -96,12 +101,24 @@ export class City {
   setState(bid, progress, alive, flash, dir) {
     const k = bid * 4;
     this.stateData[k] = progress; this.stateData[k + 1] = alive; this.stateData[k + 2] = flash; this.stateData[k + 3] = dir;
-    this.stateTex.needsUpdate = true;
+    this._dirty = true;
   }
   setInfo(bid, cx, cz, h, seed) {
     const k = bid * 4;
     this.infoData[k] = cx; this.infoData[k + 1] = cz; this.infoData[k + 2] = h; this.infoData[k + 3] = seed;
-    this.infoTex.needsUpdate = true;
+    this._dirty = true;
+  }
+
+  _sync() {
+    const n = this.stateData.length / 4, d = this.texData;
+    for (let i = 0; i < n; i++) {
+      const row = Math.floor(i / STATE_W), col = i % STATE_W;
+      const o = (row * STATE_W * 2 + col * 2) * 4;
+      d.set(this.stateData.subarray(i * 4, i * 4 + 4), o);
+      d.set(this.infoData.subarray(i * 4, i * 4 + 4), o + 4);
+    }
+    this.stateTex.needsUpdate = true;
+    this._dirty = false;
   }
 
   /** Building index under a raycast hit, skipping fallen ones. */
@@ -119,7 +136,7 @@ export class City {
     if (!b || b.state !== 'standing') return false;
     b.hp -= amount;
     this.stateData[bid * 4 + 2] = 1; // flash
-    this.stateTex.needsUpdate = true;
+    this._dirty = true;
     this.emit('hit', bid, b);
     if (b.hp <= 0) { this.collapse(bid, from); return true; }
     return false;
@@ -173,14 +190,14 @@ export class City {
         this.emit('destroyed', bid, b);
       }
     }
-    if (dirty) this.stateTex.needsUpdate = true;
+    if (dirty || this._dirty) this._sync();
   }
 
   get standingCount() { return this.buildings.filter((b) => b.state === 'standing').length; }
 }
 
 function makeTex(data, rows) {
-  const t = new THREE.DataTexture(data, STATE_W, rows, THREE.RGBAFormat, THREE.FloatType);
+  const t = new THREE.DataTexture(data, STATE_W * 2, rows, THREE.RGBAFormat, THREE.FloatType);
   t.magFilter = t.minFilter = THREE.NearestFilter;
   t.needsUpdate = true;
   return t;
@@ -211,15 +228,15 @@ function patchShader(shader, uniforms) {
     .replace('#include <common>', `#include <common>
       attribute float aBid;
       uniform sampler2D uState;
-      uniform sampler2D uInfo;
       uniform float uTime;
       varying float vFlash;
       varying vec3 vWP;
       varying vec3 vWN;`)
     .replace('#include <begin_vertex>', `#include <begin_vertex>
-      ivec2 tc = ivec2(int(mod(aBid, ${STATE_W}.0)), int(aBid / ${STATE_W}.0));
+      int bidI = int(aBid + 0.5);
+      ivec2 tc = ivec2((bidI % ${STATE_W}) * 2, bidI / ${STATE_W});
       vec4 st = texelFetch(uState, tc, 0);
-      vec4 info = texelFetch(uInfo, tc, 0);
+      vec4 info = texelFetch(uState, tc + ivec2(1, 0), 0);
       vFlash = st.b;
       vWN = normal;
       if (st.g < 0.5) {

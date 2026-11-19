@@ -1,12 +1,14 @@
 # PLATEAU City Viewer
 
+**Play the full game: VOX — break real Tokyo as a kaiju, free in the browser → [bun-cho.work/kaiju](https://bun-cho.work/kaiju?utm_source=github&utm_medium=readme)** （遊べる版は VOX：[bun-cho.work/kaiju](https://bun-cho.work/kaiju?utm_source=github&utm_medium=readme)）
+
 > **Want the photoreal version of this block?** The [BunCho City API](https://bun-cho.work/developers/city?utm_source=github&utm_medium=readme) returns a Gaussian-splat city aligned to the same PLATEAU buildings, with one collision mesh per building. **300 DREAM per 400 m × 300 m block**, price check is free. For agents: [city.md](https://bun-cho.work/docs/agents/city.md) · [llms.txt](https://bun-cho.work/llms.txt)
 >
 > 高精細な街は BunCho API で（1区画 400m×300m 300 DREAM〜、見積もりは無料）→ [街の 3D 生成 API](https://bun-cho.work/developers/city?utm_source=github&utm_medium=readme)
 
 Load buildings from Japan's open [PLATEAU](https://www.mlit.go.jp/plateau/) 3D city models into three.js, walk the streets, and break buildings one at a time.
 
-**Demo:** https://plateau-city-viewer.vercel.app (a 400 m × 300 m block of Ginza, Tokyo)
+**Try it:** `npm install && npm run dev` (a 400 m × 300 m block of Ginza, Tokyo). The old hosted demo URL now forwards to VOX.
 
 ![Ginza block](docs/overview.png)
 
